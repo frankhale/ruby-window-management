@@ -1,0 +1,16 @@
+A small extension for Ruby that provides access to Xlib in order to perform window management functions.
+
+Frank Hale <frankhale@gmail.com>
+Started: 23 May 2005
+
+This code is released under the GNU GPL version 3
+
+To build the extension at a command prompt type:
+
+ruby extconf.rb 
+
+after it creates the makefile
+
+make
+
+The examples should be able to be ran in place. No need to install anything.
