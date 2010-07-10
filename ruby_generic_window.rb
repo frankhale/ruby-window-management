@@ -29,15 +29,17 @@ class Generic
 	
 	def initialize
 		@x = WindowManagement::X11.new
-
+				
 		@dpy = @x.open_display(":0")
 
+		@screen = @x.default_screen(@dpy)
+		
 		unless @dpy
 			puts "I cannot open the display, sorry..."
 			exit
 		end
 
-		@root_window = @x.root_window(@dpy)
+		@root_window = @x.root_window(@dpy, @screen)
 		
 		@test_win = @x.create_simple_window(@dpy, @root_window, 5, 5, 640, 480, 1)
 

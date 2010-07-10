@@ -37,7 +37,9 @@ class Generic
 			exit
 		end
 
-		@root_window = @x.root_window(@dpy)
+		@screen = @x.default_screen(@dpy)
+		
+		@root_window = @x.root_window(@dpy, @screen)
 		
 		@test_win = @x.create_simple_window(@dpy, @root_window, 5, 5, 175, 75, 1)
 		@pix_win = @x.create_simple_window(@dpy, @test_win, 0, 0, 1, 1, 0)

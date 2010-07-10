@@ -39,7 +39,9 @@ class Generic
 			exit
 		end
 
-		@root_window = @x.root_window(@dpy)
+		@screen = @x.default_screen(@dpy)
+		
+		@root_window = @x.root_window(@dpy, @screen)
 		
 		@app_width = 300
 		@app_height = 200

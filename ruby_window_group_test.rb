@@ -67,7 +67,9 @@ class RubyX11Test
 			exit
 		end
 
-		@root_window = @x.root_window(@dpy)
+		@screen = @x.default_screen(@dpy)
+		
+		@root_window = @x.root_window(@dpy, @screen)
 		
 		@test_win = @x.create_simple_window(@dpy, @root_window, 5, 5, 640, 480, 1)
 		
