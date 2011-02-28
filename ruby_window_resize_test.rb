@@ -21,11 +21,11 @@
 # By: Frank Hale <frankhale@gmail.com>
 # Started On or About: 12 June 2005
 #
-# Updated License: 30 May 2010
+# Updated License: 27 Feb 2011
 
 class WindowResizeTest
-	require 'WindowManagement'
-	require 'WindowManagementConstants'
+	require './WindowManagement'
+	require './WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new

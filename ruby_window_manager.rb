@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 #
 # A small extension to provide access to a subset of Xlib from Ruby 
-# Copyright (C) 2010 Frank Hale <frankhale@gmail.com>
+# Copyright (C) 2011 Frank Hale <frankhale@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -23,11 +23,11 @@
 # By: Frank Hale <frankhale@gmail.com>
 # Started On or About: 12 June 2005
 #
-# Updated License: 30 May 2010
+# Updated: 27 Feb 2011
 
-require 'WindowManagement'
-require 'WindowManagementConstants'
-require 'Plugin'
+require './WindowManagement'
+require './WindowManagementConstants'
+require './Plugin'
 
 # Eventually these two will be filled in from a configuration file
 $user_plugins = [ "StartupList" ]
@@ -36,8 +36,8 @@ $startup_list = [ "xterm -sb -ls -fg white -bg black" ]
 
 class StartupList < Plugin
 
-def initialize(wm)
-	super(wm, "StartupList")
+  def initialize(wm)
+	  super(wm, "StartupList")
 		@type = PluginTypes::Core
 		
 		# Each plugin has it's list of events it wants to respond to.
@@ -55,7 +55,6 @@ def initialize(wm)
 end
 
 class SimpleWindowDecoration < Plugin
-
 	class Frame
 		attr_reader :frame, :window, :transient_for, :name
 		
@@ -65,8 +64,7 @@ class SimpleWindowDecoration < Plugin
 			@wm = wm
 			@x = wm.x
 			@dpy = wm.dpy
-			@root_window = wm.root_window
-
+      @root_window = wm.root_window
 			@name = @x.fetch_name(@dpy, win)
 			
 			if(@name==nil)
@@ -476,7 +474,7 @@ end
 
 class WM
 	# Allows plugins to access some WM specific info...
-	attr_reader :x, :name, :dpy, :root_window
+	attr_reader :x, :name, :dpy, :root_window, :screen
 	attr_accessor :existing_app_windows, :app_windows, :window_geometry_changing, :window_geometry_info, 
 		      :current_frame, :focus_window, :unfocus_window
 
@@ -507,9 +505,10 @@ class WM
 			puts "Starting #{@name}..."
 		end
 
-		@root_window = @x.root_window(@dpy)
+    @screen = @x.default_screen(@dpy)
+		@root_window = @x.root_window(@dpy, @screen)
 
-		@leftArrowCursor = @x.create_font_cursor(@dpy, WindowManagementConstants::XC_left_prt)
+		@leftArrowCursor = @x.create_font_cursor(@dpy, WindowManagementConstants::XC_left_ptr)
 
 		@x.define_cursor(@dpy, @root_window, @leftArrowCursor)
 
@@ -626,12 +625,10 @@ class WM
 					
 					name = @x.fetch_name(@dpy, map_request["window"])
 					
-					unless((attr["override_redirect"] == true) and (attr["map_state"] == WindowManagementConstants::IsUnviewable) and (attr["map_state"] == WindowManagementConstants::IsUnmapped))
-						plugin_dispatch(PluginTypes::Core, "MapRequest")
-						
-						unless(name == "XMMS") # This is ugly!
+					unless((attr["override_redirect"] == true) and 
+            (attr["map_state"] == WindowManagementConstants::IsUnviewable) and (attr["map_state"] == WindowManagementConstants::IsUnmapped))
+						  plugin_dispatch(PluginTypes::Core, "MapRequest")
 							plugin_dispatch(PluginTypes::Core, "ReparentNew")
-						end
 					end
 				
 				when WindowManagementConstants::Expose

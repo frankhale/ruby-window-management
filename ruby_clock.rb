@@ -1,5 +1,5 @@
 # A small extension to provide access to a subset of Xlib from Ruby 
-# Copyright (C) 2010 Frank Hale <frankhale@gmail.com>
+# Copyright (C) 2011 Frank Hale <frankhale@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -21,11 +21,11 @@
 # By: Frank Hale <frankhale@gmail.com>
 # Started On or About: 12 June 2005
 #
-# Updated License: 30 May 2010
+# Updated: 27 Feb 2011
 
 class RubyClock
-	require 'WindowManagement'
-	require 'WindowManagementConstants'
+	require './WindowManagement'
+	require './WindowManagementConstants'
 	require 'time'
 	
 	def initialize

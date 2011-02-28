@@ -1,5 +1,5 @@
 # A small extension to provide access to a subset of Xlib from Ruby 
-# Copyright (C) 2010 Frank Hale <frankhale@gmail.com>
+# Copyright (C) 2011 Frank Hale <frankhale@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
