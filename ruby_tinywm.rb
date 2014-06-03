@@ -26,8 +26,8 @@
 # Updated License: 30 May 2010
 
 class TinyWM
-	require 'WindowManagement'
-	require 'WindowManagementConstants'
+	require './WindowManagement'
+	require './WindowManagementConstants'
 
 	def initialize
 		init
