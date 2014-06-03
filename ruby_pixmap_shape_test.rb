@@ -24,8 +24,8 @@
 # Updated License: 30 May 2010
 
 class Generic
-	require 'WindowManagement'
-	require 'WindowManagementConstants'
+	require './WindowManagement'
+	require './WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new

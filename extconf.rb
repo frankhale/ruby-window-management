@@ -28,8 +28,7 @@ require 'mkmf'
 if	(have_library("X11") and 
 	 have_library("Xpm") and 
 	 have_library("Xext") and
-	 have_library("Xft")
-	)
+	 have_library("Xft"))
 	pkg_config("xft")
 
 	create_makefile("WindowManagement")

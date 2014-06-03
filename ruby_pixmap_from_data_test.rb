@@ -25,8 +25,8 @@
 
 
 class PixmapTest
-	require 'WindowManagement'
-	require 'WindowManagementConstants'
+	require './WindowManagement'
+	require './WindowManagementConstants'
 
 	def declare_pixmap
 		@my_pixmap = [
