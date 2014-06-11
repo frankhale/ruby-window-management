@@ -7,10 +7,13 @@ This code is released under the GNU GPL version 3
 
 To build the extension at a command prompt type:
 
+cd src
 ruby extconf.rb 
-
-after it creates the makefile
-
 make
 
-The examples should be able to be ran in place. No need to install anything.
+cd ../examples
+
+Now you can run any of the examples. You can use Xnest to run the window
+managers.
+
+NOTE: The examples should be able to be ran in place. No need to install anything.

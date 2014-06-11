@@ -23,53 +23,68 @@
 #
 # Updated: 27 Feb 2011
 
-class Generic
-	require './WindowManagement'
-	require './WindowManagementConstants'
+class RubyClock
+	require '../src/WindowManagement'
+	require '../src/WindowManagementConstants'
+	require 'time'
 	
 	def initialize
 		@x = WindowManagement::X11.new
-				
+
 		@dpy = @x.open_display(":0")
 
-		@screen = @x.default_screen(@dpy)
-		
 		unless @dpy
 			puts "I cannot open the display, sorry..."
 			exit
 		end
 
-		@root_window = @x.root_window(@dpy, @screen)
+		root_window = @x.root_window(@dpy, @x.default_screen(@dpy))
 		
-		@test_win = @x.create_simple_window(@dpy, @root_window, 5, 5, 640, 480, 1)
-
-		@x.store_name(@dpy, @test_win, "Window")
+		@clock_win = @x.create_simple_window(@dpy, root_window, 5, 5, 200, 30, 1)
 		
-		mask =  WindowManagementConstants::KeyPressMask			
+		@x.store_name(@dpy, @clock_win, "Ruby Clock")
 		
-		@x.set_window_event_mask(@dpy, @test_win, mask)
-	
-		@x.map_window(@dpy, @test_win)
+		@x.select_input(@dpy, @clock_win, WindowManagementConstants::KeyPressMask |
+					    WindowManagementConstants::ExposureMask)
+		
+		@x.map_window(@dpy, @clock_win)
+		
+		draw_clock
 		
 		eventloop
 	end
 	
-	def eventloop
+	def draw_clock
+		time = Time.now.httpdate
+		@x.clear_window(@dpy, @clock_win)
+		@x.draw_string(@dpy, @clock_win, 10, 20, time.to_s)
+		@x.sync(@dpy)
+	end
 	
+	def eventloop
 		while true
+			
+			# use the X file descriptor as a timer for 
+			# drawing the clock every second
+			while @x.do_select_on_x_file_descriptor(1)
+				draw_clock
+			end
+						
 			@x.next_event(@dpy)
-		
+			
 			case @x.event_type
 				when WindowManagementConstants::KeyPress
 					if @x.get_key_sym == WindowManagementConstants::XKey_q
-						@x.destroy_window(@dpy, @test_win)
+						@x.destroy_window(@dpy, @clock_win)
 						@x.close_display(@dpy)
 						exit
 					end
 		
-			end # End case
+				when WindowManagementConstants::Expose
+					draw_clock
+			end
 		end
 	end
 end
 
-pt = Generic.new
+rc = RubyClock.new

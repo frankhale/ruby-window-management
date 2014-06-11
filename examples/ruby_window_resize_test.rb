@@ -24,8 +24,8 @@
 # Updated License: 27 Feb 2011
 
 class WindowResizeTest
-	require './WindowManagement'
-	require './WindowManagementConstants'
+	require '../src/WindowManagement'
+	require '../src/WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new

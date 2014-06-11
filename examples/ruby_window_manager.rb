@@ -23,13 +23,13 @@
 # By: Frank Hale <frankhale@gmail.com>
 # Started On or About: 12 June 2005
 #
-# Updated: 27 Feb 2011
+# Updated: 10 June 2014
 
-require './WindowManagement'
-require './WindowManagementConstants'
-require './Plugin'
+require '../src/WindowManagement'
+require '../src/WindowManagementConstants'
+require './plugin'
 
-# Eventually these two will be filled in from a configuration file
+# Eventually these will be filled in from a configuration file
 $user_plugins = [ "StartupList" ]
 $core_plugins = [ "ClientManager", "SimpleWindowDecoration" ]
 $startup_list = [ "xterm -sb -ls -fg white -bg black" ]
@@ -625,9 +625,9 @@ class WM
 					
 					name = @x.fetch_name(@dpy, map_request["window"])
 					
-					unless((attr["override_redirect"] == true) and 
-            (attr["map_state"] == WindowManagementConstants::IsUnviewable) and (attr["map_state"] == WindowManagementConstants::IsUnmapped))
-						  plugin_dispatch(PluginTypes::Core, "MapRequest")
+					#unless((attr["override_redirect"] == true) and 
+          unless ((attr["map_state"] == WindowManagementConstants::IsUnviewable) and (attr["map_state"] == WindowManagementConstants::IsUnmapped))
+          	  plugin_dispatch(PluginTypes::Core, "MapRequest")
 							plugin_dispatch(PluginTypes::Core, "ReparentNew")
 					end
 				

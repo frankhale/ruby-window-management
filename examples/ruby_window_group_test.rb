@@ -54,8 +54,8 @@ class WindowGroup
 end
 
 class RubyX11Test
-	require './WindowManagement'
-	require './WindowManagementConstants'
+	require '../src/WindowManagement'
+	require '../src/WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new

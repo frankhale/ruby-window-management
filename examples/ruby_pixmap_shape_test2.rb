@@ -26,8 +26,8 @@
 puts "THIS PROGRAM IS NOT FINISHED AND MAY NOT WORK CORRECTLY"
 
 class Generic
-	require './WindowManagement'
-	require './WindowManagementConstants'
+	require '../src/WindowManagement'
+	require '../src/WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new

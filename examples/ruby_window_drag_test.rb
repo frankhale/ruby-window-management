@@ -24,8 +24,8 @@
 # Updated License: 30 May 2010
 
 class RubyX11Test
-	require './WindowManagement'
-	require './WindowManagementConstants'
+	require '../src/WindowManagement'
+	require '../src/WindowManagementConstants'
 	
 	def initialize
 		@x = WindowManagement::X11.new
